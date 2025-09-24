@@ -16,7 +16,7 @@ jobs:
                 username: ${{ secrets.SSH_USER }}
                 key: ${{ secrets.SSH_KEY }}
                 script: |
-                    cd /projects/echo-file-server
+                    cd projects/echo-file-server
                     git pull origin main
                     docker-compose down
                     docker-compose up -d --build
