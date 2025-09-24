@@ -1,10 +1,21 @@
 services:
-  echo-file-server:
+  server:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: echo-file-server
-    ports:
-      - "8080:8080"
+    container_name: server
+    expose:
+      - "8080"
     volumes:
       - ./uploads:/app/uploads
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8081:80"
+      - "8443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - server
